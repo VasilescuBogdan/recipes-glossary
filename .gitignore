@@ -1,0 +1,14 @@
+*.log
+.idea/
+.gitignore
+*.iml
+
+#client
+node_modules/
+.vscode/
+
+
+#server
+target/
+.mvn/
+

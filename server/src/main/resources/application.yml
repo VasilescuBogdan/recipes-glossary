@@ -1,0 +1,6 @@
+spring:
+    neo4j:
+        uri: neo4j://34.232.57.230:7687
+        authentication:
+            username: neo4j
+            password: internship-2024
