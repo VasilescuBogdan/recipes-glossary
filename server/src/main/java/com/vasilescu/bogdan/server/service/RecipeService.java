@@ -30,4 +30,9 @@ public class RecipeService {
                                               .build())
                        .toList();
     }
+
+    public int getNumberOfPages() {
+        Pageable pageable = PageRequest.ofSize(PAGE_SIZE);
+        return recipeRepository.findAll(pageable).getTotalPages();
+    }
 }

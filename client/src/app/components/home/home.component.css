@@ -1,0 +1,9 @@
+table {
+  width: 100%;
+}
+
+caption {
+  height: 40px;
+  text-align: center;
+  font-size: 30px;
+}
