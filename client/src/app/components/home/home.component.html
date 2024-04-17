@@ -21,7 +21,7 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openRecipeDialog(row.name)"></tr>
 </table>
 <div>
   <h1><b>Page number: {{ pageNumber }} / {{numberPages}} </b></h1>

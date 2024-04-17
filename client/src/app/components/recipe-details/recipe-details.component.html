@@ -1,0 +1,11 @@
+<div mat-dialog-title>{{recipeDetails.name}}</div>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+  <h1>{{recipeDetails.value.description}}</h1>
+  <h2>Cooking time: {{recipeDetails.value.cookingTime}}</h2>
+  <h2>Preparation time: {{recipeDetails.value.preparationTime}}</h2>
+  <p>Ingredients:</p>
+  <ul>
+    <li *ngFor="let ingredient of recipeDetails.value.ingredients">{{ingredient}}</li>
+  </ul>
+</div>

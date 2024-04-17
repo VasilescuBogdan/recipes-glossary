@@ -16,12 +16,14 @@ import {RecipeService} from "../../service/recipe.service";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
+import {MatDialog} from "@angular/material/dialog";
+import {RecipeDetailsComponent} from "../recipe-details/recipe-details.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatHeaderCellDef, MatHeaderCell, MatCellDef, MatHeaderRowDef, MatRowDef, MatHeaderRow, MatRow,
-    MatCell, MatColumnDef, MatPaginator, MatButton, MatIcon, MatIconButton, MatTable],
+  imports: [MatHeaderCellDef, MatHeaderCell, MatCellDef, MatHeaderRowDef, MatRowDef, MatHeaderRow, MatRow, MatCell,
+    MatColumnDef, MatPaginator, MatButton, MatIcon, MatIconButton, MatTable],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -31,6 +33,9 @@ export class HomeComponent implements OnInit {
   displayedColumns: string[] = ['recipe-name', 'recipe-author', 'recipe-number-of-ingredients', 'recipe-skill-level'];
   pageNumber = 1;
   numberPages = 0;
+
+  constructor(private recipeDialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     this.fetchRecipes();
@@ -59,6 +64,19 @@ export class HomeComponent implements OnInit {
       next: value => {
         this.numberPages = value;
       }, error: err => {
+        console.log(err);
+      }
+    })
+  }
+
+  openRecipeDialog(name: string) {
+    this.recipeService.getRecipeDetails(name).subscribe({
+      next: value => {
+        this.recipeDialog.open(RecipeDetailsComponent, {
+          data: {value, name}, width: '900px', height: '600px'
+        })
+      },
+      error: err => {
         console.log(err);
       }
     })
