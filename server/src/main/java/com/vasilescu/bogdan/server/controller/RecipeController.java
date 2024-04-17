@@ -1,5 +1,6 @@
 package com.vasilescu.bogdan.server.controller;
 
+import com.vasilescu.bogdan.server.dto.RecipeDetailsDto;
 import com.vasilescu.bogdan.server.dto.RecipeDto;
 import com.vasilescu.bogdan.server.service.RecipeService;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +20,17 @@ public class RecipeController {
     private final RecipeService recipeService;
 
     @GetMapping("/page/{page_number}")
-    public List<RecipeDto> getRecipePage(@PathVariable("page_number") int pageNumber) {
-        return recipeService.getRecipePage(pageNumber);
+    public List<RecipeDto> getRecipesPage(@PathVariable("page_number") int pageNumber) {
+        return recipeService.getRecipesPage(pageNumber);
     }
 
     @GetMapping("/number_pages")
-    public int getRecipePage() {
+    public int getNumberOfPages() {
         return recipeService.getNumberOfPages();
+    }
+
+    @GetMapping("/details/{recipe_name}")
+    public RecipeDetailsDto getRecipeDetails(@PathVariable("recipe_name") String recipeName) {
+        return recipeService.getRecipeDetails(recipeName);
     }
 }

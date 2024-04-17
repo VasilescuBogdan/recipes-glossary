@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 @NonNullApi
 public interface RecipeRepository extends Neo4jRepository<Recipe, String> {
     Page<Recipe> findAll(Pageable pageable);
+    Recipe findRecipeByName(String name);
 }
