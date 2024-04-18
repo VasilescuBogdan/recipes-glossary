@@ -7,10 +7,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @NonNullApi
 public interface RecipeRepository extends Neo4jRepository<Recipe, String> {
     Page<Recipe> findAll(Pageable pageable);
     Recipe findRecipeByName(String name);
-    Page<Recipe> findRecipesByNameContainingIgnoreCase(Pageable pageable, String searchKey);
+    List<Recipe> findAll();
 }
