@@ -12,4 +12,5 @@ import org.springframework.stereotype.Repository;
 public interface RecipeRepository extends Neo4jRepository<Recipe, String> {
     Page<Recipe> findAll(Pageable pageable);
     Recipe findRecipeByName(String name);
+    Page<Recipe> findRecipesByNameContainingIgnoreCase(Pageable pageable, String searchKey);
 }

@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -19,9 +20,14 @@ public class RecipeService {
     private static final int PAGE_SIZE = 20;
     private final RecipeRepository recipeRepository;
 
-    public List<RecipeDto> getRecipesPage(int pageNumber) {
+    public List<RecipeDto> getRecipesPage(int pageNumber, String searchKey) {
+        List<Recipe> pageContent;
         Pageable pageable = PageRequest.of(pageNumber, PAGE_SIZE, Sort.by("name").ascending());
-        List<Recipe> pageContent = recipeRepository.findAll(pageable).getContent();
+        if (Objects.equals(searchKey, "")) {
+            pageContent = recipeRepository.findAll(pageable).getContent();
+        } else {
+            pageContent = recipeRepository.findRecipesByNameContainingIgnoreCase(pageable, searchKey).getContent();
+        }
         return pageContent.stream()
                        .map(recipe -> RecipeDto.builder().name(recipe.getName()).author(recipe.getAuthor().getName())
                                               .numberOfIngredients(recipe.getIngredients().size())
