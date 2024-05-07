@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,12 +24,7 @@ public class RecipeController {
 
     @GetMapping("/page/{page_number}")
     public List<RecipeDto> getRecipesPage(@PathVariable("page_number") int pageNumber) {
-        return recipeService.getRecipesPage(pageNumber, "");
-    }
-
-    @GetMapping("/number_pages")
-    public int getNumberOfPages() {
-        return recipeService.getNumberOfPages();
+        return recipeService.getRecipesPage(pageNumber);
     }
 
     @GetMapping("/details/{recipe_name}")
@@ -38,6 +35,18 @@ public class RecipeController {
     @GetMapping("/search")
     public List<RecipeDto> getSearchResults(@RequestParam("search_key") String searchKey,
                                             @RequestParam("page_number") int pageNumber) {
-        return recipeService.getRecipesPage(pageNumber, searchKey);
+        return recipeService.getSearchResult(pageNumber, searchKey);
+    }
+
+    @PostMapping("/filter")
+    public List<RecipeDto> getFilterResults(@RequestBody List<String> ingredients,
+                                            @RequestParam("page_number") int pageNumber) {
+        return recipeService.getFilteredPage(pageNumber, ingredients);
+    }
+
+    @GetMapping("/author")
+    public List<RecipeDto> getAuthorRecipes(@RequestParam("page_number") int pageNumber,
+                                            @RequestParam("author") String authorName) {
+        return recipeService.getRecipeAuthor(pageNumber, authorName);
     }
 }
