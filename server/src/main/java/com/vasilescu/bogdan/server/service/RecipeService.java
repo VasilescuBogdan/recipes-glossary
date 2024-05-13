@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +30,10 @@ public class RecipeService {
         return getRepresentation(pageContent);
     }
 
-    public List<RecipeDto> getFilteredPage(int pageNumber, List<String> ingredients) {
-        List<Recipe> pageContent = recipeRepository.findRecipesByAllIngredients(ingredients, ingredients.size(),
+    public List<RecipeDto> getFilteredPage(int pageNumber, String ingredients) {
+        List<String> ingredientList = Arrays.stream(ingredients.split(","))
+                                            .toList();
+        List<Recipe> pageContent = recipeRepository.findRecipesByAllIngredients(ingredientList, ingredientList.size(),
                                                            getPageSetup(pageNumber))
                                                    .getContent();
         return getRepresentation(pageContent);
@@ -65,6 +68,37 @@ public class RecipeService {
                                           .getContent();
         }
         return getRepresentation(pageContent);
+    }
+
+    public long getNumberOfPages() {
+        return numberOfPages(recipeRepository.findAll()
+                                             .size());
+    }
+
+    public long getNumberOfPagesSearch(String searchKey) {
+        return numberOfPages(recipeRepository.findRecipesByNameContainingIgnoreCase(searchKey)
+                                             .size());
+    }
+
+    public long getNumberOfPagesAuthor(String author) {
+        return numberOfPages(recipeRepository.findRecipesByAuthorName(author)
+                                             .size());
+    }
+
+    public long getNumberOfPagesFilter(String ingredients) {
+        List<String> ingredientList = Arrays.stream(ingredients.split(","))
+                                            .toList();
+        long numberOfEntities = recipeRepository.findRecipesByAllIngredients(ingredientList, ingredientList.size())
+                                                .size();
+        return numberOfPages(numberOfEntities);
+    }
+
+    private long numberOfPages(long numberOfEntities) {
+        if (numberOfEntities % PAGE_SIZE == 0) {
+            return numberOfEntities / PAGE_SIZE;
+        } else {
+            return numberOfEntities / PAGE_SIZE + 1;
+        }
     }
 
     private PageRequest getPageSetup(int pageNumber) {

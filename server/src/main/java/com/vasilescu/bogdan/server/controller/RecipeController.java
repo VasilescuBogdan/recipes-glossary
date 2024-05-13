@@ -7,8 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,8 +36,8 @@ public class RecipeController {
         return recipeService.getSearchResult(pageNumber, searchKey);
     }
 
-    @PostMapping("/filter")
-    public List<RecipeDto> getFilterResults(@RequestBody List<String> ingredients,
+    @GetMapping("/filter")
+    public List<RecipeDto> getFilterResults(@RequestParam("ingredients") String ingredients,
                                             @RequestParam("page_number") int pageNumber) {
         return recipeService.getFilteredPage(pageNumber, ingredients);
     }
@@ -48,5 +46,25 @@ public class RecipeController {
     public List<RecipeDto> getAuthorRecipes(@RequestParam("page_number") int pageNumber,
                                             @RequestParam("author") String authorName) {
         return recipeService.getRecipeAuthor(pageNumber, authorName);
+    }
+
+    @GetMapping("/number_of_pages")
+    public long getNumberOfPages() {
+        return recipeService.getNumberOfPages();
+    }
+
+    @GetMapping("/number_of_pages/search")
+    public long getNumberOfPagesSearch(@RequestParam("search_key") String searchKey) {
+        return recipeService.getNumberOfPagesSearch(searchKey);
+    }
+
+    @GetMapping("/number_of_pages/author")
+    public long getNumberOfPagesAuthor(@RequestParam("author") String author) {
+        return recipeService.getNumberOfPagesAuthor(author);
+    }
+
+    @GetMapping("/number_of_pages/filter")
+    public long getNumberOfPagesFilter(@RequestParam("ingredients") String ingredients) {
+        return recipeService.getNumberOfPagesFilter(ingredients);
     }
 }

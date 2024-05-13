@@ -18,6 +18,8 @@ public interface RecipeRepository extends Neo4jRepository<Recipe, String> {
 
     Recipe findRecipeByName(String name);
 
+    List<Recipe> findRecipesByNameContainingIgnoreCase(String keyword);
+
     Page<Recipe> findRecipesByNameContainingIgnoreCase(Pageable pageable, String keyword);
 
     @Query(value = "MATCH (r:Recipe)-[:CONTAINS_INGREDIENT]->(i:Ingredient) WHERE i.name IN $ingredientNames " +
@@ -38,10 +40,17 @@ public interface RecipeRepository extends Neo4jRepository<Recipe, String> {
                    "LIMIT $limit", countQuery =
                                            "MATCH (r:Recipe)-[:CONTAINS_INGREDIENT]->(i:Ingredient) WHERE i.name IN " +
                                            "$ingredientNames WITH r, count(i) AS ingredientCount WHERE " +
-                                           "ingredientCount = " +
-                                           "$ingredientCount RETURN count(r)")
+                                           "ingredientCount = " + "$ingredientCount RETURN count(r)")
     Page<Recipe> findRecipesByAllIngredients(@Param("ingredientNames") List<String> ingredientNames,
                                              @Param("ingredientCount") int ingredientCount, Pageable pageable);
 
+    @Query(value = "MATCH (r:Recipe)-[:CONTAINS_INGREDIENT]->(i:Ingredient) WHERE i.name IN $ingredientNames " +
+                   "WITH r, count(i) AS ingredientCount, collect(i.name) AS ingredientNames " +
+                   "WHERE ingredientCount = $ingredientCount RETURN r")
+    List<Recipe> findRecipesByAllIngredients(@Param("ingredientNames") List<String> ingredientNames,
+                                             @Param("ingredientCount") int ingredientCount);
+
     Page<Recipe> findRecipesByAuthorName(Pageable pageable, String author);
+
+    List<Recipe> findRecipesByAuthorName(String author);
 }

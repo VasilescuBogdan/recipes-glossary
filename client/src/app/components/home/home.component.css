@@ -1,9 +1,50 @@
 table {
   width: 100%;
+  margin-top: 50px;
 }
 
-caption {
-  height: 40px;
+.content {
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+.title {
   text-align: center;
-  font-size: 30px;
+  font-size: 48px;
+}
+
+.search-bar-filter {
+  margin-top: 50px;
+  display: flex;
+  text-align: center;
+  padding-left: 70px;
+  padding-right: 70px;
+}
+
+.input-bar {
+  display: flex;
+  width: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.search-button {
+  margin-left: 15px;
+  margin-top: 10px;
+}
+
+.footer-buttons{
+  display: flex;
+  margin-top: 20px;
+}
+
+.footer-button {
+  margin-top: 15px;
+  margin-left: 30px;
+}
+
+.input-separator {
+  width: 30px;
 }
