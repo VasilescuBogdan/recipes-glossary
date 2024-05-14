@@ -1,11 +1,32 @@
-<div mat-dialog-title>{{recipeDetails.name}}</div>
-<mat-divider></mat-divider>
 <div mat-dialog-content>
-  <h1>{{recipeDetails.value.description}}</h1>
-  <h2>Cooking time: {{recipeDetails.value.cookingTime}}</h2>
-  <h2>Preparation time: {{recipeDetails.value.preparationTime}}</h2>
-  <p>Ingredients:</p>
-  <ul>
-    <li *ngFor="let ingredient of recipeDetails.value.ingredients">{{ingredient}}</li>
-  </ul>
+  <h1>Description: </h1>
+  <p class="recipe-description">{{ recipeDetails.description }}</p>
+  <h2>Cooking time: {{ recipeDetails.cookingTime }}</h2>
+  <h2>Preparation time: {{ recipeDetails.preparationTime }}</h2>
+  <div class="lists">
+    <div class="list">
+      <p>Ingredients:</p>
+      <ul>
+        <li *ngFor="let ingredient of recipeDetails.ingredients">{{ ingredient }}</li>
+      </ul>
+    </div>
+    <div class="list">
+      <p>Collections:</p>
+      <ul>
+        <li *ngFor="let collection of recipeDetails.collections">{{ collection }}</li>
+      </ul>
+    </div>
+    <div class="list">
+      <p>Keywords:</p>
+      <ul>
+        <li *ngFor="let keyword of recipeDetails.keywords">{{ keyword }}</li>
+      </ul>
+    </div>
+    <div class="list">
+      <p>Diets:</p>
+      <ul>
+        <li *ngFor="let diet of recipeDetails.diets">{{ diet }}</li>
+      </ul>
+    </div>
+  </div>
 </div>

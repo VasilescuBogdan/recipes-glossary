@@ -3,4 +3,7 @@ export interface RecipeDetailsDto {
   cookingTime: number;
   preparationTime: number;
   ingredients: string[];
+  collections: string[];
+  keywords: string[];
+  diets: string;
 }

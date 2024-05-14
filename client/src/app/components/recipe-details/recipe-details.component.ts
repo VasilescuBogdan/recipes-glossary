@@ -9,6 +9,7 @@ import {
 import {MatButton} from "@angular/material/button";
 import {MatDivider} from "@angular/material/divider";
 import {NgForOf} from "@angular/common";
+import {RecipeDetailsDto} from "../../dto/recipe-details.dto";
 
 @Component({
   selector: 'app-components.recipe-details',
@@ -19,7 +20,6 @@ import {NgForOf} from "@angular/common";
 })
 export class RecipeDetailsComponent {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public recipeDetails: any) {
-    console.log(recipeDetails)
+  constructor(@Inject(MAT_DIALOG_DATA) public recipeDetails: RecipeDetailsDto) {
   }
 }

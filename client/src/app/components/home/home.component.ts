@@ -134,7 +134,7 @@ export class HomeComponent implements OnInit {
     this.recipeService.getRecipeDetails(name).subscribe({
       next: value => {
         this.recipeDialog.open(RecipeDetailsComponent, {
-          data: {value, name}, width: '900px', height: '600px'
+          data: value, width: '900px', height: '600px'
         })
       }, error: err => {
         console.log(err);

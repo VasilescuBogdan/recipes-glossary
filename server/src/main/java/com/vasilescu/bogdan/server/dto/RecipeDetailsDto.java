@@ -14,5 +14,5 @@ public class RecipeDetailsDto {
     private List<String> ingredients;
     private List<String> collections;
     private List<String> keywords;
-    private List<String> diet;
+    private List<String> diets;
 }

@@ -46,7 +46,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openRecipeDialog(row.name)"></tr>
   </table>
   <div class="footer-buttons">
-    <h1><b>Page number: {{ pageNumber }} / {{ numberOfPages }}</b></h1>
+    <h1 style="color: white">Page number: {{ pageNumber }} / {{ numberOfPages }}</h1>
     <button class="footer-button" mat-icon-button (click)="fetchPage(pageNumber - 1)" [disabled]="pageNumber === 1">
       <mat-icon>navigate_before</mat-icon>
     </button>
