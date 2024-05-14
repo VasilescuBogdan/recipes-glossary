@@ -3,7 +3,10 @@ package com.vasilescu.bogdan.server.service;
 import com.vasilescu.bogdan.server.dto.RecipeDetailsDto;
 import com.vasilescu.bogdan.server.dto.RecipeDto;
 import com.vasilescu.bogdan.server.model.Author;
+import com.vasilescu.bogdan.server.model.Collection;
+import com.vasilescu.bogdan.server.model.DietType;
 import com.vasilescu.bogdan.server.model.Ingredient;
+import com.vasilescu.bogdan.server.model.Keyword;
 import com.vasilescu.bogdan.server.model.Recipe;
 import com.vasilescu.bogdan.server.repository.AuthorRepository;
 import com.vasilescu.bogdan.server.repository.RecipeRepository;
@@ -49,6 +52,18 @@ public class RecipeService {
                                                   .stream()
                                                   .map(Ingredient::getName)
                                                   .toList())
+                               .collections(recipe.getCollection()
+                                                  .stream()
+                                                  .map(Collection::getName)
+                                                  .toList())
+                               .diet(recipe.getDietTypes()
+                                           .stream()
+                                           .map(DietType::getName)
+                                           .toList())
+                               .keywords(recipe.getKeywords()
+                                               .stream()
+                                               .map(Keyword::getName)
+                                               .toList())
                                .build();
     }
 
